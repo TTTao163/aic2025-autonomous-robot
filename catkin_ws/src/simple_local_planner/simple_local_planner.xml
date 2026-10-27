@@ -1,0 +1,13 @@
+<!-- 
+    需要定位动态链接库
+        library 根标签下的 path 属性设置
+    声明子类与基类
+        library 子标签下的 class 声明
+ -->
+<library path="lib/libsimple_local_planner">
+    <class name="simple_local_planner/SimpleLocalPlannerROS" type="simple_local_planner::SimpleLocalPlannerROS" base_class_type="nav_core::BaseLocalPlanner">
+        <description>
+            A simple local planner that first rotates to face the goal, then follows the path, and finally adjusts the final orientation.
+        </description>
+    </class>
+</library>

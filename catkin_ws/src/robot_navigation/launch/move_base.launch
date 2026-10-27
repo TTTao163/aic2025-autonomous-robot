@@ -1,0 +1,67 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="planner"  default="simple" doc="opt: dwa, teb,simple"/> 
+  <arg name="simulation" default= "false"/> 
+  <arg name="use_dijkstra" default= "true"/>  
+  
+  <!-- move_base use DWA planner-->
+  <group if="$(eval planner == 'dwa')">
+    <!-- 导航全局路径规划公共参数 -->
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/move_base_params.yaml"          command="load" ns="move_base"/>
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/base_global_planner_param.yaml" command="load" ns="move_base"/>
+    <!-- 导航DWA局部路径规划器参数 -->
+    <param name="move_base/base_local_planner"    type="string" value="dwa_local_planner/DWAPlannerROS"/>
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/dwa_local_planner_params.yaml"  command="load" ns="move_base"/>
+    <!-- 导航代价地图公共参数 -->
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/global_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/local_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/local_costmap_params.yaml"      command="load" ns="move_base"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/global_costmap_params.yaml"     command="load" ns="move_base"/>
+    <!--default is True,use dijkstra algorithm;set to False,usd A* algorithm-->
+    <param name="GlobalPlanner/use_dijkstra " value="$(arg use_dijkstra)" /> 
+    <!-- 启动导航节点 -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="false"/>
+  </group>
+
+
+  <!-- move_base use TEB planner-->
+  <group if="$(eval planner == 'teb')">
+    <!-- 导航全局路径规划公共参数 -->
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/move_base_params.yaml"          command="load" ns="move_base"/>
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/base_global_planner_param.yaml" command="load" ns="move_base"/>
+    <!-- 导航TEB局部路径规划器参数 -->
+    <param name="move_base/base_local_planner"    type="string" value="teb_local_planner/TebLocalPlannerROS"/>
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/teb_local_planner_params.yaml"  command="load" ns="move_base"/>
+    <!-- 导航代价地图公共参数 -->
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/global_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/local_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/local_costmap_params.yaml"      command="load" ns="move_base"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/global_costmap_params.yaml"     command="load" ns="move_base"/>
+    <!--default is True,use dijkstra algorithm;set to False,usd A* algorithm-->
+    <param name="GlobalPlanner/use_dijkstra " value="$(arg use_dijkstra)" /> 
+    <!-- 启动导航节点 -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="false"/>
+
+  </group>
+
+  <group if="$(eval planner == 'simple')">
+    <!-- 导航全局路径规划公共参数 -->
+    <param name="move_base/base_global_planner" value="carrot_planner/CarrotPlanner" />
+    <!-- 加载自定义局部规划器的参数 -->
+    <param name="move_base/base_local_planner" value="simple_local_planner/SimpleLocalPlannerROS" />
+    <rosparam file="$(find simple_local_planner)/param/simple_local_planner.yaml" command="load" />
+    <!-- <param name="move_base/base_local_planner"    type="string" value="teb_local_planner/TebLocalPlannerROS"/>
+    <rosparam file="$(find robot_navigation)/param/params_nav_common/teb_local_planner_params.yaml"  command="load" ns="move_base"/> -->
+    <!-- 导航代价地图公共参数 -->
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/global_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/costmap_common_params.yaml"     command="load" ns="move_base/local_costmap"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/local_costmap_params.yaml"      command="load" ns="move_base"/>
+    <rosparam file="$(find robot_navigation)/param/params_costmap_common/global_costmap_params.yaml"     command="load" ns="move_base"/>
+    <!-- 启动导航节点 -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="false"/>
+
+  </group>
+
+
+
+</launch>

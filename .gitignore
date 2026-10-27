@@ -1,0 +1,31 @@
+# catkin 编译产物
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/install/
+catkin_ws/logs/
+.catkin_workspace
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 模型权重（体积过大，另行分发）
+*.pt
+*.onnx
+*.engine
+*.weights
+*.pb
+
+# 第三方依赖
+catkin_ws/src/yolo_ros/
+catkin_ws/src/chassis_bringup/
+catkin_ws/src/ydlidar_ros_driver/
+
+# 编辑器
+.vscode/
+.idea/
+
+# 系统文件
+Thumbs.db
+.DS_Store

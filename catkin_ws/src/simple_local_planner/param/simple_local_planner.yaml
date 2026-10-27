@@ -1,0 +1,14 @@
+# Parameters for the SimpleLocalPlannerROS
+SimpleLocalPlannerROS:
+  # Tolerances
+  yaw_tolerance: 0.15  # rad, 角度容忍度
+  xy_goal_tolerance: 0.15 # meters, 位置容忍度
+
+  # Path Following
+  carrot_distance: 0.2 # meters, 点距离机器人的距离
+
+  # Speed control
+  linear_speed_factor: 0.5   # 线性速度控制因子
+  angular_speed_factor: 0.8  # 角速度控制因子
+  max_linear_speed: 0.5      # m/s, 最大线速度
+  max_angular_speed: 0.8     # rad/s, 最大角速度

@@ -1,0 +1,14 @@
+material MyGround/com_map
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture com_map.png
+      }
+    }
+  }
+}
